@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   , title
 	   , content
 	   , writer
-	   , regdate
+	   , date_format(regdate, '%Y-%m-%d') regdate
 	   , viewcnt 
 	 from 
 	   tbl_board 
@@ -24,8 +24,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </select>
 
  <update id="update">
- update tbl_board set title =#{title}, content =#{content} 
- where bno = #{bno}
+ 	update tbl_board set 
+ 	title =#{title}
+ 	, content =#{content} 
+ 	where bno = #{bno}
  </update>
 
  <delete id="delete">
@@ -35,7 +37,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <select id="listAll" resultType="BoardVO">
  <![CDATA[
  select 
-   bno, title, content, writer, regdate, viewcnt 
+   bno
+   , title
+   , content
+   , writer
+   , date_format(regdate, '%Y-%m-%d') regdate
+   , viewcnt 
  from 
    tbl_board 
  where bno > 0 
